@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/api/v1/on-covid-19','CovidBackController@store');
+Route::get('/api/v1/on-covid-19/xml','CovidBackController@storexml');
+
