@@ -16,6 +16,14 @@ class CovidBackController extends Controller
      */
     public function store(Request $request)
     {
+      $population = $request->input('population');
+      $timeToElapse = $request->input('timeToElapse');
+      $reportedCases = $request->input('reportedCases');
+      $totalHospitalBeds = $request->input('totalHospitalBeds');
+      $periodType = $request->input('periodType');
+      $Data= ['region'=> ['name'=> 'Africa','avgAge'=> '19.7','avgDailyIncomeInUSD'=> '1','avgDailyIncomePopulation'=> '0.72'],'periodType'=> $periodType,'timeToElapse'=>$timeToElapse,'reportedCases'=> $reportedCases,'population' =>$population,'totalHospitalBeds'=> $totalHospitalBeds   ];
+
+      return $this->covid19ImpactEstimator($Data);
         
     }
 
@@ -90,6 +98,6 @@ class CovidBackController extends Controller
           $Impact_infectionsByRequestedTime,'severeCasesByRequestedTime'=> $Impact_severeCasesByRequestedTime,'hospitalBedsByRequestedTime'=>$Impact_hospitalBedsByRequestedTime,'casesForICUByRequestedTime'=> $Impact_casesForICUByRequestedTime,'casesForVentilatorsByRequestedTime'=>$Impact_casesForVentilatorsByRequestedTime, 'dollarsInFlight'=>$Impact_dollarsInFlight ],'severeImpact' =>['currentlyInfected'=>$SevereImpact_currentlyInfected ,
               'infectionsByRequestedTime'=>$SevereImpact_infectionsByRequestedTime ,'severeCasesByRequestedTime'=> $Severe_severeCasesByRequestedTime,'hospitalBedsByRequestedTime' =>$Severe_hospitalBedsByRequestedTime,'casesForICUByRequestedTime'=>$Severe_casesForICUByRequestedTime,'casesForVentilatorsByRequestedTime'=>$Severe_casesForVentilatorsByRequestedTime,'dollarsInFlight' =>$Severe_dollarsInFlight]];
     
-        return $Jresult ;
+        return response()->json($Jresult, 200);
     }
 }
